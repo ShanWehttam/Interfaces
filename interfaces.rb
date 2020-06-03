@@ -26,10 +26,10 @@ puts good_strings = (all_strings - ignore_strings).sort
 all_enum = 
   Enumerable.instance_methods.sort
 ignore_enum = 
-  %i[ chunk chunk_while collect collect_concat detect drop drop_while each_cons 
+  %i[ chain chunk chunk_while collect collect_concat detect drop drop_while each_cons 
       each_entry each_with_object each_with_index entries find find_all 
       find_index first grep grep_v lazy max member? max_by min min_by minmax 
-      none? one? slice_after slice_before slice_when take take_while ]
+      none? one? slice_after slice_before slice_when sum tally take take_while ]
 
 puts "\n\nENUMERABLE " 
 puts good_enum = (all_enum - ignore_enum).sort
@@ -38,7 +38,7 @@ all_array =
   Array.instance_methods - Enumerable.instance_methods - Object.instance_methods
 ignore_array =
   %i[ * []= << assoc at .bsearch bsearch_index clear collect! compact compact! concat 
-      delete delete_at delete_if dig each each_index empty? fetch fill flatten
+      deconstruct delete delete_at delete_if dig each each_index empty? fetch fill flatten
       flatten! index keep_if last length map! pack pop push rassoc reject! 
       repeated_combination repeated_permutation replace reverse reverse! rindex
       rotate rotate! sample select! shuffle shuffle! shift size slice slice! 
@@ -50,11 +50,12 @@ puts good_array = (all_array - ignore_array).sort
 
 all_hash = Hash.instance_methods - Enumerable.instance_methods - Object.instance_methods
 ignore_hash =
-  %i[ []= < <= > >= assoc clear compare_by_identity compare_by_identity? default default=
-      default_proc default_proc= delete delete_if dig each each_key each_pair 
+  %i[ []= < <= > >= assoc clear compact compare_by_identity compare_by_identity? default default=
+      default_proc default_proc= delete delete_if deconstruct_keys dig each each_key each_pair 
       each_value empty? fetch fetch_values flatten has_key? has_value? index keep_if key 
-      key? keys length merge! rassoc rehash reject! replace select! size 
-      shift store to_hash to_proc update value? values values_at ]
+      key? keys length merge! rassoc rehash reject! replace select! size slice
+      shift store transform_keys transform_keys! transform_values transform_values! 
+      to_hash to_proc update value? values values_at ]
       
 puts "\n\nHASH" 
 puts good_hash = (all_hash - ignore_hash).sort
